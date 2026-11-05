@@ -1,0 +1,23 @@
+stages:
+  - test
+  - build
+
+default:
+  image: node:20-alpine
+
+test_app:
+  stage: test
+  script:
+    - node --version
+    - npm test
+
+build_app:
+  stage: build
+  script:
+    - npm run build
+    - ls -la dist
+  artifacts:
+    name: "devops-lab5-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - dist/
+    expire_in: 1 week
